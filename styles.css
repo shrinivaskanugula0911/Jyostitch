@@ -1064,6 +1064,12 @@ footer {
 
     /* Gallery cards */
     .gallery-item { max-width: 660px; height: 380px; }
+    .gallery-item:nth-child(1) { top: 90px; }
+    .gallery-item:nth-child(2) { top: 105px; }
+    .gallery-item:nth-child(3) { top: 120px; }
+    .gallery-item:nth-child(4) { top: 135px; }
+    .gallery-item:nth-child(5) { top: 150px; }
+    .gallery-item:nth-child(6) { top: 165px; }
 }
 
 /* ---- Tablets portrait (≤ 768px) ---- */
@@ -1120,6 +1126,13 @@ footer {
         margin: 0 auto;
         box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Stronger shadow for overlap */
     }
+    
+    .gallery-item:nth-child(1) { top: 90px; }
+    .gallery-item:nth-child(2) { top: 105px; }
+    .gallery-item:nth-child(3) { top: 120px; }
+    .gallery-item:nth-child(4) { top: 135px; }
+    .gallery-item:nth-child(5) { top: 150px; }
+    .gallery-item:nth-child(6) { top: 165px; }
 
     /* --- Steps --- */
     .step-card { padding: 2rem 1.5rem; }
@@ -1173,6 +1186,12 @@ footer {
         max-width: 100%;
         height: 240px;
     }
+    .gallery-item:nth-child(1) { top: 80px; }
+    .gallery-item:nth-child(2) { top: 90px; }
+    .gallery-item:nth-child(3) { top: 100px; }
+    .gallery-item:nth-child(4) { top: 110px; }
+    .gallery-item:nth-child(5) { top: 120px; }
+    .gallery-item:nth-child(6) { top: 130px; }
     .gallery-grid { gap: 50vh; margin-bottom: 15vh; margin-top: 2rem; }
     
     .gallery-header {
