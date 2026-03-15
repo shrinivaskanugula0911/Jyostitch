@@ -684,64 +684,6 @@ section {
     font-size: 1.4rem;
 }
 
-/* ==================================
-   How It Works
-================================== */
-.steps-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 3rem;
-}
-
-.step-card {
-    flex: 1;
-    background: var(--cream);
-    padding: 3rem 2rem;
-    border-radius: var(--border-radius-lg);
-    position: relative;
-    transition: var(--transition-smooth);
-    z-index: 2;
-}
-
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-}
-
-.step-number {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 50px;
-    background: var(--pink);
-    color: var(--white);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    box-shadow: 0 5px 15px rgba(255, 183, 178, 0.5);
-    border: 4px solid var(--white);
-}
-
-.step-icon {
-    font-size: 3rem;
-    color: var(--text-main);
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.step-connector {
-    font-size: 2rem;
-    color: var(--pink);
-    opacity: 0.5;
-}
 
 /* ==================================
    Gallery Section (Auto-Scrolling Marquee)
@@ -1146,16 +1088,6 @@ footer {
         gap: 2rem;
     }
 
-    /* Steps */
-    .steps-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .step-connector {
-        transform: rotate(90deg);
-        margin: 0.5rem 0;
-    }
 }
 
 /* ---- Tablets portrait (≤ 768px) ---- */
@@ -1245,15 +1177,6 @@ footer {
 
     .service-card {
         padding: 1.8rem 1.5rem;
-    }
-
-    /* --- Steps --- */
-    .step-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .step-card h3 {
-        font-size: 1.1rem;
     }
 
     /* --- Testimonials --- */
@@ -1386,22 +1309,6 @@ footer {
         width: 60px;
         height: 60px;
         font-size: 1.4rem;
-    }
-
-    /* Steps */
-    .steps-container {
-        gap: 0.5rem;
-        margin-top: 1.5rem;
-    }
-
-    .step-card {
-        padding: 1.5rem 1rem;
-    }
-
-    .step-number {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
     }
 
     /* Testimonials */
