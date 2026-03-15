@@ -625,20 +625,21 @@ section {
 ================================== */
 /* Sticky Header for Gallery */
 .gallery-header {
+    position: sticky;
+    top: 80px; /* Aligns just below nav */
+    z-index: 100;
     margin-bottom: 3rem;
+    padding: 2rem 0;
+    background: transparent;
+    text-shadow: 0 4px 15px rgba(251, 248, 241, 0.9), 0 -4px 15px rgba(251, 248, 241, 0.9); /* Blur text-shadow effect */
+    pointer-events: none;
 }
 
 @media (max-width: 992px) {
     .gallery-header {
-        position: sticky;
-        top: 80px; /* Slightly lower to feel less cramped */
-        z-index: 100;
-        background: transparent;
+        top: 70px;
         padding: 1rem 0;
         margin-bottom: 2rem;
-        /* Subtle shadow to keep text readable over busy cards */
-        text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
-        pointer-events: none; /* Let clicks pass through to cards if overlapping */
     }
 }
 
@@ -646,8 +647,8 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 70vh; /* large gap to force clear scrolling interaction */
-    margin-top: 4rem;
+    gap: 75vh; /* ample scroll room to build stack visually */
+    margin-top: 2rem;
     margin-bottom: 20vh;
 }
 
@@ -666,13 +667,14 @@ section {
     transition: transform 0.3s ease-out, filter 0.3s ease-out;
 }
 
-/* Create the physical stack "staircase" look by giving each card a slightly lower fixed sticky position and adding real images */
-.gallery-item:nth-child(1) { top: 120px; background: url('images/gallery-1.jpg') center/cover no-repeat; z-index: 1; }
-.gallery-item:nth-child(2) { top: 135px; background: url('images/gallery-2.jpg') center/cover no-repeat; z-index: 2; }
-.gallery-item:nth-child(3) { top: 150px; background: url('images/gallery-3.jpg') center/cover no-repeat; z-index: 3; }
-.gallery-item:nth-child(4) { top: 165px; background: url('images/gallery-4.jpg') center/cover no-repeat; z-index: 4; }
-.gallery-item:nth-child(5) { top: 180px; background: url('images/gallery-5.jpg') center/cover no-repeat; z-index: 5; }
-.gallery-item:nth-child(6) { top: 195px; background: url('images/gallery-1.jpg') center/cover no-repeat; z-index: 6; }
+/* Create the physical stack "staircase" look under the title in the center */
+/* Formula: title space (~200px) + staggered increment */
+.gallery-item:nth-child(1) { top: 200px; background: url('images/gallery-1.jpg') center/cover no-repeat; z-index: 1; }
+.gallery-item:nth-child(2) { top: 215px; background: url('images/gallery-2.jpg') center/cover no-repeat; z-index: 2; }
+.gallery-item:nth-child(3) { top: 230px; background: url('images/gallery-3.jpg') center/cover no-repeat; z-index: 3; }
+.gallery-item:nth-child(4) { top: 245px; background: url('images/gallery-4.jpg') center/cover no-repeat; z-index: 4; }
+.gallery-item:nth-child(5) { top: 260px; background: url('images/gallery-5.jpg') center/cover no-repeat; z-index: 5; }
+.gallery-item:nth-child(6) { top: 275px; background: url('images/gallery-1.jpg') center/cover no-repeat; z-index: 6; }
 
 .gallery-overlay {
     position: absolute;
@@ -1127,12 +1129,12 @@ footer {
         box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Stronger shadow for overlap */
     }
     
-    .gallery-item:nth-child(1) { top: 90px; }
-    .gallery-item:nth-child(2) { top: 105px; }
-    .gallery-item:nth-child(3) { top: 120px; }
-    .gallery-item:nth-child(4) { top: 135px; }
-    .gallery-item:nth-child(5) { top: 150px; }
-    .gallery-item:nth-child(6) { top: 165px; }
+    .gallery-item:nth-child(1) { top: 180px; }
+    .gallery-item:nth-child(2) { top: 195px; }
+    .gallery-item:nth-child(3) { top: 210px; }
+    .gallery-item:nth-child(4) { top: 225px; }
+    .gallery-item:nth-child(5) { top: 240px; }
+    .gallery-item:nth-child(6) { top: 255px; }
 
     /* --- Steps --- */
     .step-card { padding: 2rem 1.5rem; }
@@ -1186,17 +1188,18 @@ footer {
         max-width: 100%;
         height: 240px;
     }
-    .gallery-item:nth-child(1) { top: 80px; }
-    .gallery-item:nth-child(2) { top: 90px; }
-    .gallery-item:nth-child(3) { top: 100px; }
-    .gallery-item:nth-child(4) { top: 110px; }
-    .gallery-item:nth-child(5) { top: 120px; }
-    .gallery-item:nth-child(6) { top: 130px; }
-    .gallery-grid { gap: 50vh; margin-bottom: 15vh; margin-top: 2rem; }
+    .gallery-item:nth-child(1) { top: 170px; }
+    .gallery-item:nth-child(2) { top: 180px; }
+    .gallery-item:nth-child(3) { top: 190px; }
+    .gallery-item:nth-child(4) { top: 200px; }
+    .gallery-item:nth-child(5) { top: 210px; }
+    .gallery-item:nth-child(6) { top: 220px; }
+    .gallery-grid { gap: 60vh; margin-bottom: 25vh; margin-top: 1rem; }
     
     .gallery-header {
-        top: 70px;
+        top: 60px;
         padding: 0.5rem 0;
+        text-shadow: 0 4px 10px rgba(251, 248, 241, 0.95);
     }
     .gallery-header .section-title { font-size: 1.8rem; }
     .gallery-header .section-subtitle { font-size: 0.9rem; }
