@@ -122,4 +122,96 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ─────────────────────────────────────────────
+    //  Apple / Framer-style Gallery Scroll Stack
+    // ─────────────────────────────────────────────
+    const galleryScene = document.querySelector('.gallery-scene');
+    const gcards = document.querySelectorAll('.gcard');
+
+    if (galleryScene && gcards.length) {
+        const N = gcards.length;
+
+        // Ease function: smooth step (ease-in-out)
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        // Clamp helper
+        function clamp(val, min, max) {
+            return Math.min(Math.max(val, min), max);
+        }
+
+        function updateGallery() {
+            const rect = galleryScene.getBoundingClientRect();
+            const sceneTop = rect.top;          // negative when scrolled past
+            const sceneHeight = rect.height;    // full scroll travel
+
+            // Total scrollable travel within the scene
+            const totalTravel = sceneHeight - window.innerHeight;
+
+            // How far we've scrolled INTO the scene (clamped 0 → totalTravel)
+            const scrolled = clamp(-sceneTop, 0, totalTravel);
+
+            // Each card gets an equal "slot" of scroll travel
+            const slotSize = totalTravel / N;
+
+            gcards.forEach((card, i) => {
+                const slotStart = i * slotSize;
+                const slotEnd   = (i + 1) * slotSize;
+
+                // Progress [0→1] within THIS card's appear slot
+                const rawEnter = clamp((scrolled - slotStart) / slotSize, 0, 1);
+                const enter    = easeInOutCubic(rawEnter);
+
+                // How far through the NEXT card's slot (i.e. how much this card is pushed behind)
+                const nextSlotStart = (i + 1) * slotSize;
+                const rawPush = clamp((scrolled - nextSlotStart) / slotSize, 0, 1);
+                const push    = easeInOutCubic(rawPush);
+
+                let translateY, scale, zIndex;
+
+                if (scrolled < slotStart) {
+                    // ── Upcoming: card is below the stack, hidden
+                    translateY = 80;
+                    scale      = 0.92;
+                    card.style.opacity = '0';
+                    card.style.zIndex  = 10 + i;
+
+                } else if (scrolled >= slotStart && scrolled < slotEnd) {
+                    // ── Entering: card slides up from below into view
+                    translateY = 80 * (1 - enter);          // 80px → 0
+                    scale      = 0.92 + 0.08 * enter;        // 0.92 → 1.0
+                    card.style.opacity = String(clamp(enter * 3, 0, 1)); // quick fade-in
+                    card.style.zIndex  = 10 + i;
+
+                } else {
+                    // ── Active / being pushed behind by next card
+                    // Stack scale: each successive card behind scales down a bit more
+                    const baseScale = 1 - push * 0.06;      // 1.0 → 0.94
+                    translateY = -push * 10;                  // slight upward drift
+                    scale      = baseScale;
+                    card.style.opacity = '1';
+                    card.style.zIndex  = 10 + i;
+                }
+
+                card.style.transform = `translateY(${translateY}px) scale(${scale})`;
+            });
+        }
+
+        // Use rAF for butter-smooth updates
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateGallery();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Run once on load to set initial state
+        updateGallery();
+    }
 });
