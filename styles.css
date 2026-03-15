@@ -47,7 +47,7 @@
 
 html, body {
     overflow-x: hidden;
-    width: 100%;
+    max-width: 100vw;
 }
 
 html {
@@ -1142,11 +1142,12 @@ footer {
 /* ---- Mobile (≤ 480px) ---- */
 @media (max-width: 480px) {
     html { font-size: 15px; }
-    .container { padding: 0 1rem; }
+    body { max-width: 100vw; overflow-x: hidden; }
+    .container { padding: 0 1rem; width: 100%; overflow: hidden; }
 
     /* Section spacing */
-    section, .services, .gallery, .how-it-works, .testimonials, .contact { padding: 2.5rem 0; }
-    .section-bg { margin: 0.8rem; border-radius: 16px; }
+    section, .services, .gallery, .how-it-works, .testimonials, .contact { padding: 2.5rem 0; overflow: hidden; }
+    .section-bg { margin: 0.5rem; border-radius: 16px; margin-left: 0; margin-right: 0; }
 
     /* Nav */
     .logo { font-size: 1.2rem; }
@@ -1194,10 +1195,10 @@ footer {
     .speech-bubble { font-size: 0.95rem; padding: 1.2rem; }
 
     /* Contact */
-    .contact-wrapper { padding: 1.2rem; gap: 1.5rem; border-radius: var(--border-radius-lg); }
+    .contact-wrapper { padding: 1.2rem; gap: 1.5rem; border-radius: var(--border-radius-lg); width: 100%; box-sizing: border-box;}
     .contact-info h2 { font-size: 1.4rem; margin-bottom: 0.5rem;}
     .contact-details li { font-size: 0.95rem; }
-    input, textarea { padding: 0.8rem; font-size: 0.95rem; }
+    input, textarea { padding: 0.8rem; font-size: 0.95rem; box-sizing: border-box; width: 100%; }
 
     /* Buttons */
     .btn { padding: 0.85rem 1.5rem; font-size: 1rem; }
