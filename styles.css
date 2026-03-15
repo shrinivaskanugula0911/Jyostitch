@@ -1111,7 +1111,7 @@ footer {
 
     /* --- Gallery --- */
     .gallery-grid { 
-        gap: 30vh; /* More breathing room for background scrolling */
+        gap: 60vh; /* More breathing room for background scrolling */
         padding-bottom: 20vh;
     }
     .gallery-item {
@@ -1174,10 +1174,10 @@ footer {
     .gallery-item {
         max-width: 100%;
         height: 240px;
-        top: 35vh !important; /* Slightly lower on very small screens to avoid header */
+        top: 30vh !important; /* Slightly lower on very small screens to avoid header */
     }
-    .gallery-item:nth-child(n) { top: 35vh !important; }
-    .gallery-grid { gap: 20vh; margin-bottom: 8vh; margin-top: 1.5rem; }
+    .gallery-item:nth-child(n) { top: 30vh !important; }
+    .gallery-grid { gap: 50vh; margin-bottom: 15vh; margin-top: 2rem; }
     
     .gallery-header {
         top: 70px;
