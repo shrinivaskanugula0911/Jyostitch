@@ -684,48 +684,51 @@ section {
 ================================== */
 .gallery {
     position: relative;
-    padding-bottom: 10rem; /* Extra space for stacking effect */
+    padding-bottom: 12rem;
 }
 
 .gallery-stack {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    margin-top: 4rem;
-    position: relative;
+    gap: 0;
+    margin-top: 3rem;
     max-width: 860px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Outer sticky wrapper — height driven by ::before padding trick */
+/* ------------------------------------------
+ * Each card is position:sticky.
+ * height is a fixed calc() so sticky has a definite height to work with.
+ * 16:9 = min(860px, 100vw - 4rem) * 9/16
+ * ------------------------------------------ */
 .gallery-card {
-    position: sticky;  /* sticky takes precedence; relative is implicit for children */
+    position: sticky;
+    width: 100%;
+    height: calc(min(860px, 100vw - 4rem) * 9 / 16);
     border-radius: 24px;
     overflow: hidden;
-    /* Visible border via inset shadow (not clipped by overflow:hidden unlike outline) */
-    box-shadow:
-        inset 0 0 0 8px var(--white),
-        inset 0 0 0 11px var(--pink-light),
-        0 20px 50px rgba(74, 78, 105, 0.15);
     background: var(--white);
-    /* position:sticky acts as a containing block for abs children */
-    isolation: isolate;
+    box-shadow:
+        inset 0 0 0 9px var(--white),
+        inset 0 0 0 12px var(--pink-light),
+        0 24px 60px rgba(74, 78, 105, 0.18);
+    transform-origin: top center;
+    will-change: transform;
 }
 
-/* 16:9 aspect-ratio hack that works with position:sticky */
-.gallery-card::before {
-    content: '';
-    display: block;
-    padding-bottom: 56.25%; /* 9/16 = 56.25% */
-}
+/* Staircase: each card sticks progressively lower + scales smaller */
+.card-1 { top: 80px;  z-index: 10; transform: scale(1);    }
+.card-2 { top: 100px; z-index: 11; transform: scale(0.97); }
+.card-3 { top: 120px; z-index: 12; transform: scale(0.94); }
+.card-4 { top: 140px; z-index: 13; transform: scale(0.91); }
+.card-5 { top: 160px; z-index: 14; transform: scale(0.88); }
 
 .gallery-card img {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -733,12 +736,12 @@ section {
     transform: scale(1.05);
 }
 
-/* Stair style stacking animation */
-.card-1 { top: calc(15vh + 0px);   z-index: 10; transform: scale(1); }
-.card-2 { top: calc(15vh + 30px);  z-index: 11; transform: scale(0.98); }
-.card-3 { top: calc(15vh + 60px);  z-index: 12; transform: scale(0.96); }
-.card-4 { top: calc(15vh + 90px);  z-index: 13; transform: scale(0.94); }
-.card-5 { top: calc(15vh + 120px); z-index: 14; transform: scale(0.92); }
+/* Spacers between cards give the scroll travel that triggers stacking */
+.gallery-spacer {
+    height: calc(min(860px, 100vw - 4rem) * 9 / 16);
+    flex-shrink: 0;
+    pointer-events: none;
+}
 
 /* ==================================
    Testimonials
@@ -1033,13 +1036,7 @@ footer {
     /* Steps */
     .steps-container { flex-direction: column; align-items: center; }
     .step-connector { transform: rotate(90deg); margin: 0.5rem 0; }
-    .gallery-stack { gap: 2.5rem; }
-    .gallery-card { border-radius: 22px; }
-    .card-1 { top: calc(12vh + 0px); }
-    .card-2 { top: calc(12vh + 25px); }
-    .card-3 { top: calc(12vh + 50px); }
-    .card-4 { top: calc(12vh + 75px); }
-    .card-5 { top: calc(12vh + 100px); }
+    .gallery-card { border-radius: 20px; }
 
 }
 
@@ -1130,13 +1127,12 @@ footer {
 
     /* Gallery */
     .gallery { padding-bottom: 5rem; }
-    .gallery-stack { gap: 1.8rem; margin-top: 2rem; }
-    .gallery-card { border-width: 6px; outline-width: 2px; border-radius: 16px; }
-    .card-1 { top: calc(10vh + 0px); }
-    .card-2 { top: calc(10vh + 15px); }
-    .card-3 { top: calc(10vh + 30px); }
-    .card-4 { top: calc(10vh + 45px); }
-    .card-5 { top: calc(10vh + 60px); }
+    .gallery-card { border-radius: 14px; }
+    .card-1 { top: 60px; }
+    .card-2 { top: 72px; }
+    .card-3 { top: 84px; }
+    .card-4 { top: 96px; }
+    .card-5 { top: 108px; }
 
     /* Services */
     .services-grid { grid-template-columns: 1fr; }
