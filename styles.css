@@ -680,95 +680,88 @@ section {
 }
 
 /* ==================================
-   Gallery Section — Apple/Framer scroll stack
+   Gallery Section
 ================================== */
+
 .gallery {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-/* Title area above the scroll section */
-.gallery .container {
-    padding-top: 6rem;
-    padding-bottom: 3rem;
-}
-
-/* ── Scene: gives the scroll travel (N slots × vh each) ── */
-.gallery-scene {
-    /* 5 cards × 100vh each = 500vh of scroll room */
-    height: 500vh;
     position: relative;
+    padding-bottom: 12rem;
 }
 
-/* ── Sticky viewport: stays pinned while scene scrolls ── */
-.gallery-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
+.gallery-stack {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none; /* allow child cards to get pointer events */
+    flex-direction: column;
+    gap: 80px;
+    margin-top: 4rem;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* ── Card pile: all cards sit in the same 16:9 box ── */
-.gallery-pile {
-    position: relative;
-    width: min(860px, 100vw - 4rem);
-    /* aspect-ratio works fine here since this is NOT sticky itself */
-    aspect-ratio: 16 / 9;
-    pointer-events: none;
-}
-
-/* ── Individual card ── */
-.gcard {
-    position: absolute;
-    inset: 0;
+/* base card */
+.gallery-card {
+    position: sticky;
+    top: 120px;
     border-radius: 24px;
     overflow: hidden;
-    background: var(--white);
+
     box-shadow:
-        inset 0 0 0 9px var(--white),
-        inset 0 0 0 12px var(--pink-light),
-        0 30px 80px rgba(74, 78, 105, 0.22);
-    /* initial state: below and invisible — JS will drive these */
-    transform: translateY(80px) scale(0.92);
-    opacity: 0;
-    will-change: transform, opacity;
-    pointer-events: auto;
-    cursor: default;
+        inset 0 0 0 8px var(--white),
+        inset 0 0 0 11px var(--pink-light),
+        0 25px 60px rgba(0,0,0,0.15);
+
+    background: white;
+    transition: transform 0.5s ease, filter 0.5s ease;
 }
 
-/* Card 0 starts visible (JS will adjust) */
-.gcard[data-index="0"] {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+/* aspect ratio */
+.gallery-card::before {
+    content: '';
+    display: block;
+    padding-bottom: 56.25%;
 }
 
-.gcard img {
+.gallery-card img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
 }
 
-.gcard:hover img {
-    transform: scale(1.04);
+/* staircase offsets */
+.card-1 {
+    z-index: 1;
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-    .gallery-scene { height: 400vh; }
-    .gallery-pile { border-radius: 18px; }
-    .gcard { border-radius: 18px; }
+.card-2 {
+    top: 150px;
+    z-index: 2;
+    transform: scale(0.96);
 }
 
-@media (max-width: 480px) {
-    .gallery .container { padding-top: 4rem; padding-bottom: 2rem; }
-    .gallery-scene { height: 350vh; }
-    .gcard { border-radius: 14px; }
+.card-3 {
+    top: 180px;
+    z-index: 3;
+    transform: scale(0.93);
+}
+
+.card-4 {
+    top: 210px;
+    z-index: 4;
+    transform: scale(0.90);
+}
+
+.card-5 {
+    top: 240px;
+    z-index: 5;
+    transform: scale(0.87);
+}
+
+/* hover zoom */
+.gallery-card:hover img {
+    transform: scale(1.06);
+    transition: transform 0.6s ease;
 }
 
 /* ==================================
