@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile menu toggle
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-    
+
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Intersection Observer for scroll animations
     const animationElements = document.querySelectorAll('.animate-on-scroll');
-    
+
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileNameDisplay = document.getElementById('fileName');
 
     if (fileInput && fileNameDisplay) {
-        fileInput.addEventListener('change', function() {
+        fileInput.addEventListener('change', function () {
             if (this.files && this.files.length > 0) {
                 fileNameDisplay.textContent = this.files[0].name;
             } else {
@@ -75,30 +75,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Form submission mock
+    // Form submission WhatsApp integration
     const orderForm = document.getElementById('orderForm');
     if (orderForm) {
         orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const mobile = document.getElementById('mobile').value;
+            const description = document.getElementById('description').value;
+            const fileName = fileNameDisplay ? fileNameDisplay.textContent : 'No file chosen';
+
+            let message = `Hello Jyostitch! I would like to discuss a custom order.\n\n`;
+            message += `*Name:* ${name}\n`;
+            message += `*Mobile:* ${mobile}\n`;
+            message += `*Description:* ${description}`;
+
+            if (fileName !== 'No file chosen') {
+                message += `\n\n_(Note: I have a reference image named "${fileName}" that I will send to you now.)_`;
+            }
+
+            // Placeholder for business WhatsApp number (include country code, without '+' or spaces)
+            const whatsappNumber = '+919391738181';
+
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+
+            // Optional: Show success state briefly then reset
             const btn = orderForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Magic...';
-            btn.style.opacity = '0.8';
-            
-            // Mock API delay
+
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Redirecting to WhatsApp...';
+            btn.style.background = 'var(--mint)';
+
             setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Magic Sent!';
-                btn.style.background = 'var(--mint)';
+                btn.innerHTML = originalText;
+                btn.style.background = '';
                 orderForm.reset();
-                fileNameDisplay.textContent = 'No file chosen';
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    btn.style.opacity = '1';
-                }, 3000);
-            }, 1500);
+                if (fileNameDisplay) fileNameDisplay.textContent = 'No file chosen';
+            }, 2500);
         });
     }
 
@@ -108,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 const headerOffset = window.innerWidth <= 768 ? 70 : 80;
