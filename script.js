@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Placeholder for business WhatsApp number (include country code, without '+' or spaces)
-            const whatsappNumber = '+919391738181';
+            const whatsappNumber = '+919391752507';
 
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
