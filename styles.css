@@ -732,7 +732,7 @@ section {
 .gallery-card {
     position: relative;
     width: min(85vw, 450px);
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 4;
     border-radius: 20px;
     overflow: hidden;
     flex-shrink: 0;
